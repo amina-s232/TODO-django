@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-center" style="margin-top:150px;">hi {{request.user}}</h2>
+  <table class="table w-50 mx-auto my-1 mt-5 table-dark table-striped table-hover">
+    {% for i in items %}
+    <tr>
+      {% if i.completed_status %}
+        <td><a href="{% url 'detail' i.id %}" class="text-decoration-none text-white">{{i.task_name}}</a></td>
+      {% else %}
+      <td><a href="{% url 'detail' i.id %}" class="text-decoration-none text-white">{{i.task_name}}</a></td>
+
+      {% endif %}
+    <!-- <td><a href="" class="text-decoration-none text-white">{{i.due_date}}</a></td>
+    <td><a href=""><i class="fa-solid fa-pen text-white"></i></a></td>
+    <td><a href=""><i class="fa-solid fa-circle-check text-white"></i></a></td> -->
+
+    <td class="text-muted">{{i.due_date}}</td>
+    <td><a href="{% url 'update' i.id %}">update</a></td>
+    {% if i.completed_status %}
+      <td>Done</td>
+    {% else %}
+      <td><a href="{% url 'edit' i.id %}">mark as done</a></td>
+    {% endif %}
+    <td><a href=" {% url 'delete' i.id %}">delete</a></td>
+    </tr>
+    {% endfor %}
+  </table>          
+{% endblock %}
+
