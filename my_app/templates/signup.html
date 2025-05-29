@@ -15,9 +15,9 @@
   }
 
   .overlay {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.32);
     /* Dark overlay */
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(2px);
     /* Blur effect */
     min-height: 100vh;
     display: flex;
@@ -49,7 +49,8 @@
 <div class="overlay">
   <div class="card shadow-lg">
     <div class="container mt-5">
-      <h2 class="text-center mb-3">Join <span class="text-danger">DoneList</span> Today</h2>
+      <h2 class="text-center mb-3">Join <span style="color:#3A3A3A; font-size:30px; font-weight:bold;" ><i class="fa-solid fa-table-list" ></i>
+        <a class="navbar-brand "  href="#">Schedulo</a></span> Today</h2>
       <p class="text-center text-white mb-4">Create an account to start organizing your day, tracking tasks, and getting
         things done — one checkbox at a time.</p>
     </div>
@@ -58,7 +59,7 @@
       {% csrf_token %}
       {{form.as_p}}
       <div class="text-center">
-      <button type="submit" class="btn btn-primary mb-3">submit</button>
+      <button type="submit" style="background-color:rgb(223, 175, 113);"  class="btn  mb-3">submit</button>
   </div>
   </form>
 </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View
-from my_app.forms import Userregistrationform,Loginform,Taskform,Forgotpasswordform,Otpverifyform,resetpasswordform
+from my_app.forms import *
 from my_app.models import User,TaskModel,Otpmodel
 from django.contrib.auth import authenticate,login,logout
 import random
@@ -21,11 +21,10 @@ def is_user(fn):
     return wrapper
 
 
-
-
 class Userreigistarationview(View):
     def get(self,request):
         form = Userregistrationform
+        
         return render(request,'signup.html',{'form':form})
     
     def post(self,request):
@@ -78,14 +77,16 @@ class Addtaskview(View):
         form=Taskform(request.POST)
         if form.is_valid():
             TaskModel.objects.create(user_id=request.user,**form.cleaned_data)
+            return redirect('tasklist')
         return render(request,'addtask.html',{'form':form})
     
-# @method_decorator(decorator=is_user,name="dispatch")
+
 class Taskreadview(View):
     def get(self,request):
 
-        # items= TaskModel.objects.all()
+        
         items=TaskModel.objects.filter(user_id=request.user)
+    
         return render(request,'tasklist.html',{'items':items})    
 
 @method_decorator(decorator=is_user,name="dispatch")
@@ -103,13 +104,13 @@ class Taskupdate(View):
         form = Taskform(request.POST,instance=item)
         if form.is_valid:
             form.save()
-
+            return redirect('tasklist')
         form =Taskform
         return render(request,'update.html',{'form':form})
     
 @method_decorator(decorator=is_user,name='dispatch')    
 class Taskdelete(View):
-    def get(self,request,**kwargs):
+    def post(self,request,**kwargs):
         id =kwargs.get('pk')
         TaskModel.objects.get(id=id).delete()
         return redirect('tasklist')
@@ -193,7 +194,6 @@ class Taskfilterview(View):
         print(tasks)
         return render(request,'filter.html',{'tasks':tasks})
     
-
-class Index(View):
+class StartpageView(View):
     def get(self,request):
-        return render(request,'indexx.html')
+        return render(request,'startpage.html')

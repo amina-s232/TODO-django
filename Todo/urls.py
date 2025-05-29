@@ -32,5 +32,6 @@ urlpatterns = [
     path('verifyotp/',Otpverifyview.as_view(),name='otpverify'),
     path('reset/',Resetpassword.as_view(),name='reset'),
     path('filter/',Taskfilterview.as_view(),name='filter'),
-    path('',Index.as_view(),name="indexx")
+    path('',StartpageView.as_view(),name="firstpage")
+    
 ]
